@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     1.5.2
+ * @version     1.6.4
  *
  * MIT LICENSE
  *
@@ -339,14 +339,26 @@ class SlimHttpUtilTest extends PHPUnit_Framework_TestCase {
      * Test parses Cookie: HTTP header
      */
     public function testParsesCookieHeader() {
-        $header = 'foo=bar; one=two; colors=blue; colors=red; colors=green';
+        $header = 'foo=bar; one=two; colors=blue';
         $result = Slim_Http_Util::parseCookieHeader($header);
         $this->assertEquals(3, count($result));
         $this->assertEquals('bar', $result['foo']);
         $this->assertEquals('two', $result['one']);
-        $this->assertEquals(3, count($result['colors']));
-        $this->assertEquals('blue', $result['colors'][0]);
-        $this->assertEquals('red', $result['colors'][1]);
-        $this->assertEquals('green', $result['colors'][2]);
+        $this->assertEquals('blue', $result['colors']);
+    }
+
+    public function testParsesCookieHeaderWithCommaSeparator() {
+        $header = 'foo=bar, one=two, colors=blue';
+        $result = Slim_Http_Util::parseCookieHeader($header);
+        $this->assertEquals(3, count($result));
+        $this->assertEquals('bar', $result['foo']);
+        $this->assertEquals('two', $result['one']);
+        $this->assertEquals('blue', $result['colors']);
+    }
+
+    public function testPrefersLeftmostCookieWhenManyCookiesWithSameName() {
+        $header = 'foo=bar; foo=beer';
+        $result = Slim_Http_Util::parseCookieHeader($header);
+        $this->assertEquals('bar', $result['foo']);
     }
 }

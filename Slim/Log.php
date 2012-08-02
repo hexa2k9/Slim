@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     1.6.0
+ * @version     1.6.5
  * @package     Slim
  *
  * MIT LICENSE
@@ -54,6 +54,12 @@
  * @since   1.0.0
  */
 class Slim_Log {
+    const FATAL = 0;
+    const ERROR = 1;
+    const WARN = 2;
+    const INFO = 3;
+    const DEBUG = 4;
+
     /**
      * @var array
      */

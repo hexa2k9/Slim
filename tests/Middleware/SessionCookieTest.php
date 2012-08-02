@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     1.5.2
+ * @version     1.6.4
  *
  * MIT LICENSE
  *
@@ -36,6 +36,10 @@ require_once 'Slim/Slim.php';
 
 class SessionCookieTest extends PHPUnit_Framework_TestCase {
     public function setUp() {
+        if ( session_id() !== '' ) {
+            session_unset();
+            session_destroy();
+        }
         $_SESSION = array();
     }
 

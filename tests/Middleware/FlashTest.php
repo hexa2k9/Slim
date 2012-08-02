@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     1.5.2
+ * @version     1.6.4
  *
  * MIT LICENSE
  *
@@ -106,5 +106,19 @@ class SlimFlashTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('bar', $f['info']);
         unset($f['info']);
         $this->assertFalse(isset($f['info']));
+    }
+
+    /**
+     * Test iteration
+     */
+    public function testIteration() {
+        $_SESSION['slim.flash'] = array('info' => 'foo', 'error' => 'bar');
+        $f = new Slim_Middleware_Flash();
+        $f->loadMessages();
+        $output = '';
+        foreach ( $f as $key => $value ) {
+            $output .= $key . $value;
+        }
+        $this->assertEquals('infofooerrorbar', $output);
     }
 }

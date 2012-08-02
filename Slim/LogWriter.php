@@ -6,7 +6,7 @@
  * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     1.6.0
+ * @version     1.6.5
  * @package     Slim
  *
  * MIT LICENSE
@@ -32,7 +32,7 @@
  */
 
 /**
- * Log File Writer
+ * Log Writer
  *
  * This class is used by Slim_Log to write log messages to a valid, writable
  * resource handle (e.g. a file or STDERR).
@@ -41,7 +41,7 @@
  * @author  Josh Lockhart
  * @since   1.5.2
  */
-class Slim_LogFileWriter {
+class Slim_LogWriter {
     /**
      * @var resource
      */
@@ -55,7 +55,7 @@ class Slim_LogFileWriter {
      */
     public function __construct( $resource ) {
         if ( !is_resource($resource) ) {
-            throw new InvalidArgumentException('Cannot create LogFileWriter. Invalid resource handle.');
+            throw new InvalidArgumentException('Cannot create LogWriter. Invalid resource handle.');
         }
         $this->resource = $resource;
     }
